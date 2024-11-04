@@ -22,9 +22,15 @@ Route::get( '/contact', function () {
 // Jobs
 
 Route::get( '/jobs', function () {
+    //Job::all()
+//    $jobs = Job::with('employer')->get();
+//    $jobs = Job::with('employer')->paginate(4);
+//    $jobs = Job::with('employer')->simplePaginate(4); // simple pagination
+    $jobs = Job::with('employer')->cursorPaginate(4);
+
     return view( 'jobs',
         [
-            'jobs' => Job::all()
+            'jobs' => $jobs
         ] );
 } );
 Route::get( '/jobs/{id}', function ( $id ) {
