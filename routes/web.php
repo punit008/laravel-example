@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use App\Models\Job;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 // Home
-Route::get( '/', function () {
+/*Route::get( '/', function () {
     return view( 'home' );
 } );
 
@@ -17,11 +18,16 @@ Route::get( '/about', function () {
 //Contact
 Route::get( '/contact', function () {
     return view( 'contact' );
-} );
+} );*/
 
+Route::view('/', 'home');
+Route::view('/contact', 'contact');
+Route::view('/about', 'about');
 // Jobs
+Route::resource('jobs', JobController::class);
 
-Route::get( '/jobs', function () {
+//Route::get( '/jobs', [JobController::class, 'index'] );
+/*Route::get( '/jobs', function () {
     //Job::all()
 //    $jobs = Job::with('employer')->get();
 //    $jobs = Job::with('employer')->paginate(4);
@@ -32,9 +38,9 @@ Route::get( '/jobs', function () {
         [
             'jobs' => $jobs
         ] );
-} );
+} );*/
 
-Route::get( '/jobs/create', function ( Job $job ) {
+/*Route::get( '/jobs/create', function ( Job $job ) {
     return view( 'jobs/create', [] );
 } );
 
@@ -50,19 +56,21 @@ Route::post( '/jobs', function () {
     ] );
     return redirect( '/jobs' );
 } );
-Route::get( '/jobs/{id}', function ( $id ) {
+Route::get( '/jobs/{job}', function (Job $job ) {
 
 //    \Illuminate\Support\Arr::first( $jobs, function ( $job ) use ($id) {
 //       return $job['id'] === $id;
 //    });
 
-    $job = Job::find( $id );
-
+//    $job = Job::find( $id );
+//
     return view( 'jobs.show', [ 'job' => $job ] );
+
+
 } );
 
-Route::get( '/jobs/{id}/edit', function ( $id ) {
-    $job = Job::find( $id );
+Route::get( '/jobs/{job}/edit', function (Job $job ) {
+//    $job = Job::find( $id );
 
     return view( 'jobs.edit', [ 'job' => $job ] );
 } );
@@ -82,5 +90,5 @@ Route::patch( '/jobs/{id}', function ( $id ) {
 Route::delete( '/jobs/{id}', function ( $id ) {
      Job::findOrFail($id)->delete();
      return redirect( '/jobs' );
-} );
+} );*/
 
